@@ -1,0 +1,47 @@
+<div *ngIf="message; else unAuth" class="main-wrapper">
+  <h1>{{ message }}</h1>
+  <div>
+    <form [formGroup]="form" (submit)="submit()" class="ex-form">
+      <mat-card-content>
+        <mat-form-field class="ex-full-width">
+          <input formControlName="content" matInput placeholder="content" />
+        </mat-form-field>
+        <mat-radio-group formControlName="priority" aria-label="Select an option">
+          <mat-radio-button value="0">CRITICAL</mat-radio-button>
+          <mat-radio-button value="1">HIGH</mat-radio-button>
+          <mat-radio-button value="2">MEDIUM</mat-radio-button>
+          <mat-radio-button value="3">LOW</mat-radio-button>
+          <mat-radio-button value="4">MINOR</mat-radio-button>
+        </mat-radio-group>
+      </mat-card-content>
+      <button type="submit" mat-stroked-button color="accent" class="btn-block">
+        Create
+      </button>
+    </form>
+  </div>
+
+  <ul *ngIf="todos.length; else noTodos">
+    <li *ngFor="let todo of todos; let i = index">
+      <span [class.done]="todo.isCompleted">
+        <input
+          type="checkbox"
+          [checked]="todo.isCompleted"
+          (change)="onChange(todo.id)"
+        />
+        <strong>{{ i + 1 }} </strong>{{ todo.content }}
+      </span>
+
+      <small>{{ todo.date | date }}</small>
+
+      <button class="rm" (click)="removeTodo(todo.id)">&times;</button>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noTodos>
+  <h3>No todos!</h3>
+</ng-template>
+
+<ng-template #unAuth>
+  <a [routerLink]="['auth/signin']"><p>authorized PLZ!</p></a>
+</ng-template>

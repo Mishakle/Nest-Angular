@@ -1,0 +1,24 @@
+<mat-toolbar color="primary" class="app-header">
+  <div>
+    <a [routerLink]="['/']" class="positronx">Todo</a>
+  </div>
+  <span class="nav-tool-items" *ngIf="!isAuthenticated">
+    <a mat-button [routerLink]="['auth/signin']" routerLinkActive="active">Sign in</a>
+    <a
+      mat-button
+      mat-raised-button
+      [routerLink]="['auth/signup']"
+      routerLinkActive="active"
+      >Sign up</a
+    >
+  </span>
+  <span class="nav-tool-items" *ngIf="isAuthenticated">
+    <a
+      mat-button
+      [routerLink]="['auth/signin']"
+      (click)="logout()"
+      routerLinkActive="active"
+      >Log out</a
+    >
+  </span>
+</mat-toolbar>
